@@ -18,10 +18,20 @@ use App\Validator\UniqueEventName;
 #[UniqueEventName]
 #[ApiResource(
     operations: [
-        new GetCollection(normalizationContext: [
-            'groups' => ['event:read']
-        ]),
+        new GetCollection(
+            openapiContext: [
+                "summary" => "Récupérer la liste des événements",
+                "description" => ""
+            ],
+            normalizationContext: [
+                'groups' => ['event:read']
+            ]
+        ),
         new Post(
+            openapiContext: [
+                "summary" => "Créer un nouvel événement",
+                "description" => "Une vérification est faite sur le nom de l'événement pour éviter les doublons"
+            ],
             normalizationContext: [
                 'groups' => ['event:read']
             ],
@@ -30,6 +40,10 @@ use App\Validator\UniqueEventName;
             ]
         ),
         new Delete(
+            openapiContext: [
+                "summary" => "Supprimer un nouvel événement",
+                "description" => ""
+            ],
         )
     ],
     paginationEnabled: false

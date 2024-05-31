@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +16,14 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new GetCollection(normalizationContext: [
             'groups' => ['event:read']
         ]),
+        new Post(
+            normalizationContext: [
+                'groups' => ['event:read']
+            ],
+            denormalizationContext: [
+                'groups' => ['event:write']
+            ]
+        )
     ],
     order: ['name' => 'ASC'],
     paginationEnabled: false
@@ -28,16 +37,16 @@ class Event
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['event:read'])]
-    private ?\DateTimeInterface $dateStart = null;
+    #[Groups(['event:read', 'event:write'])]
+    private ?\DateTimeInterface $startDate = null;
 
     public function getId(): ?int
     {
@@ -68,15 +77,13 @@ class Event
         return $this;
     }
 
-    public function getDateStart(): ?\DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->dateStart;
+        return $this->startDate;
     }
 
-    public function setDateStart(\DateTimeInterface $dateStart): static
+    public function setStartDate(?\DateTimeInterface $startDate): void
     {
-        $this->dateStart = $dateStart;
-
-        return $this;
+        $this->startDate = $startDate;
     }
 }

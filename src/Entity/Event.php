@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
@@ -30,9 +32,16 @@ use App\Validator\UniqueEventName;
         new Delete(
         )
     ],
-    order: ['startDate' => 'ASC'],
     paginationEnabled: false
 )]
+#[ApiFilter(OrderFilter::class,
+    properties: [
+        'startDate'
+    ],
+    arguments: [
+        'orderParameterName' => 'order'
+    ])
+]
 class Event
 {
     #[ORM\Id]

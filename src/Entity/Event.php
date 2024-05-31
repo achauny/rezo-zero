@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Repository\EventRepository;
@@ -23,6 +24,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
             denormalizationContext: [
                 'groups' => ['event:write']
             ]
+        ),
+        new Delete(
         )
     ],
     order: ['startDate' => 'ASC'],

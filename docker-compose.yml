@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  php-apache:
+    build: .
+    ports:
+      - "8000:80"
+      - "8443:443"
+    volumes:
+      - .:/var/www/symfony
+      - ./ssl:/etc/ssl
+      - ./vhost.conf:/etc/apache2/sites-enabled/vhost.conf
+    environment:
+      PHP_IDE_CONFIG: "serverName=Docker"

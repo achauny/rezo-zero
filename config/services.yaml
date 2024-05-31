@@ -20,5 +20,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Validator\UniqueEventNameValidator:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+        tags:
+            - { name: validator.constraint_validator, alias: app_unique_event_name }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -10,8 +10,10 @@ use App\Repository\EventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use App\Validator\UniqueEventName;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[UniqueEventName]
 #[ApiResource(
     operations: [
         new GetCollection(normalizationContext: [

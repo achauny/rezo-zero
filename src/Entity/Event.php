@@ -25,7 +25,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
             ]
         )
     ],
-    order: ['name' => 'ASC'],
+    order: ['startDate' => 'ASC'],
     paginationEnabled: false
 )]
 class Event
